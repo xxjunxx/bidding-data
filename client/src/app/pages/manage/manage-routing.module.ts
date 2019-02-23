@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ManageComponent } from './manage.component';
 import { ItemListComponent } from './item-list/item-list.component';
+import { ItemDetailComponent } from './item-detail/item-detail.component';
 
 
 const routes: Routes = [
@@ -9,7 +10,8 @@ const routes: Routes = [
     path: 'manage',
     component: ManageComponent,
     children: [
-      { path: 'item-list', component: ItemListComponent, pathMatch: 'full'}
+      { path: 'item-list', component: ItemListComponent, pathMatch: 'full'},
+      { path: 'item-list/:id', component: ItemDetailComponent, pathMatch: 'full'}
     ]
   }
 ];
