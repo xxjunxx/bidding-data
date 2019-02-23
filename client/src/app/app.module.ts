@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { LoginModule } from './pages/login/login.module';
+import { SearchModule } from './pages/search/search.module';
+import { ManageModule } from './pages/manage/manage.module';
+import { ItemService } from './services/item.service';
 
 registerLocaleData(en);
 
@@ -22,9 +26,14 @@ registerLocaleData(en);
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    LoginModule,
+    SearchModule,
+    ManageModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [{ 
+    provide: NZ_I18N, useValue: en_US }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
