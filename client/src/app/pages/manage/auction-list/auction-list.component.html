@@ -2,7 +2,7 @@
   #ajaxTable
   nzShowSizeChanger
   [nzFrontPagination]="false"
-  [nzData]="bidDataSet"
+  [nzData]="auctionDataSet"
   [nzLoading]="loading"
   [nzTotal]="total"
   [(nzPageIndex)]="pageIndex"
@@ -11,16 +11,20 @@
   (nzPageSizeChange)="searchData(true)">
   <thead >
     <tr>
-      <th>bidder name</th>
-      <th>bid time</th>
-      <th>bid price</th>
+      <th>item id</th>
+      <th>item name</th>
+      <th>number of bids</th>
+      <th>start tiem</th>
+      <th>end time</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td>{{data.bidder_name}}</td>
-      <td>{{data.bid_time}}</td>
-      <td>{{data.bid_price}}</td>
+      <td>{{data.item_id}}</td>
+      <td>{{data.item_name}}</td>
+      <td>{{data.number_bids}}</td>
+      <td>{{data.startime}}</td>
+      <td>{{data.endtime}}</td>
     </tr>
   </tbody>
 </nz-table>

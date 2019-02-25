@@ -1,0 +1,68 @@
+<nz-tabset>
+  <nz-tab nzTitle="Bidder">
+    
+    <nz-list
+      class="bidder-loadmore-list"
+      [nzDataSource]="bidders"
+      [nzItemLayout]="'horizontal'"
+      [nzLoading]="initLoading"
+      [nzRenderItem]="bidder"
+      [nzLoadMore]="bidderLoadMore">
+      <ng-template #bidder let-bidder>
+        <nz-list-item [nzContent]="" [nzActions]="bidder.loading?[]:[editAction,moreAction]">
+          <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="bidder.loading">
+            <ng-template #editAction><a [routerLink]="[bidder.bidder_name]">edit</a></ng-template>
+            <ng-template #moreAction><a [routerLink]="[bidder.bidder_name]">more</a></ng-template>
+            <nz-list-item-meta
+              [nzTitle]="nzTitle"
+              nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              nzDescription="{{bidder.rating}}">
+              <ng-template #nzTitle>
+                <h4>{{bidder.bidder_name}}</h4>
+              </ng-template>
+            </nz-list-item-meta>
+          </nz-skeleton>
+        </nz-list-item>
+      </ng-template>
+      <ng-template #bidderLoadMore>
+          <div class="loadmore">
+              <button nz-button *ngIf="!bidderLoadingMore" (click)="getBidders()">loading more</button>
+          </div>
+      </ng-template>
+    </nz-list>
+
+  </nz-tab>
+  <nz-tab nzTitle="Seller">
+    <nz-list
+      class="seller-loadmore-list"
+      [nzDataSource]="sellers"
+      [nzItemLayout]="'horizontal'"
+      [nzLoading]="initLoading"
+      [nzRenderItem]="seller"
+      [nzLoadMore]="sellerLoadMore">
+      <ng-template #seller let-seller>
+        <nz-list-item [nzContent]="" [nzActions]="seller.loading?[]:[editAction,moreAction]">
+          <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="false" [nzLoading]="seller.loading">
+            <ng-template #editAction><a [routerLink]="[seller.seller_name]">edit</a></ng-template>
+            <ng-template #moreAction><a [routerLink]="[seller.seller_name]">more</a></ng-template>
+            <nz-list-item-meta
+              [nzTitle]="nzTitle"
+              nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              nzDescription="{{seller.rating}}">
+              <ng-template #nzTitle>
+                <h4>{{seller.seller_name}}</h4>
+              </ng-template>
+            </nz-list-item-meta>
+          </nz-skeleton>
+        </nz-list-item>
+      </ng-template>
+      <ng-template #sellerLoadMore>
+          <div class="loadmore">
+              <button nz-button *ngIf="!sellerLoadingMore" (click)="getSellers()">loading more</button>
+          </div>
+      </ng-template>
+    </nz-list>
+
+    
+  </nz-tab>
+</nz-tabset>

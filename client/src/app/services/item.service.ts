@@ -31,6 +31,19 @@ export class ItemService {
     { item_id : '1', bidder_name: 'bidder0', bid_time: '2001-12-17 05:51:35', bid_price: '6.30'}
   ]
 
+  auctions1: any[] = [
+    { item_id : '1', item_name: 'item1', country_name: 'usa', seller_name: 'seller1', description: 'description1' },
+    { item_id : '2', item_name: 'item2', country_name: 'usa', seller_name: 'seller2', description: 'description2' },
+    { item_id : '3', item_name: 'item3', country_name: 'usa', seller_name: 'seller2', description: 'description3' },
+    { item_id : '4', item_name: 'item4', country_name: 'usa', seller_name: 'seller3', description: 'description4' },
+  ]
+
+  auctions2: any[] = [
+    { item_id : '5', item_name: 'item1', country_name: 'usa', seller_name: 'seller1', description: 'description1' },
+    { item_id : '5', item_name: 'item2', country_name: 'usa', seller_name: 'seller2', description: 'description2' },
+    { item_id : '5', item_name: 'item3', country_name: 'usa', seller_name: 'seller2', description: 'description3' },
+    { item_id : '5', item_name: 'item4', country_name: 'usa', seller_name: 'seller3', description: 'description4' },
+  ]
   constructor(private http: HttpClient) { }
 
   getItems(): Observable<any> {
@@ -53,10 +66,14 @@ export class ItemService {
   }
 
   getBids(ItemId: number, pageIndex: number = 1, pageSize: number = 5): Observable<any> {
-    
     if ( pageIndex == 1) 
       return of(this.bids1);
     return of(this.bids2);
   }
 
+  getAuctions(ItemId: number, pageIndex: number = 1, pageSize: number = 5): Observable<any> {
+    if ( pageIndex == 1) 
+      return of(this.auctions1);
+    return of(this.auctions2);
+  }
 }
