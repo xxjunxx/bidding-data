@@ -1,9 +1,8 @@
 const query = require('../db/db-manager');
 
 ItemModel = {
-    findAllItems : () => {
-        
-        let sql = `SELECT * FROM item limit 0,20`;
+    findItemsByPage : (pageIndex, pageSize) => {
+        let sql = `SELECT * FROM item limit ` + (pageIndex - 1) * pageSize + `,` + pageSize;
         return query(sql);
     },
 

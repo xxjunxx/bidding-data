@@ -4,9 +4,10 @@ const cUsers = require('./controller/c-users');
 
 const router = new Router();
 
-router.get('/items', cItems.getAllItems);
+router.post('/items', cItems.getItemsByPage);
 
 router.get('/items/:itemId', cItems.getSingleItem);
 
 router.get('/bidders', cUsers.getAllBidders);
+
 module.exports = router;

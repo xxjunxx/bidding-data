@@ -7,26 +7,31 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-
+  
   items = [];
+  pageIndex = 1;
+  pageSize = 5;
   initLoading = true;
   loadingMore = false;
+  
 
   constructor(private itemService: ItemService) { }
 
   ngOnInit() {
     this.getItems();
-    this.initLoading = false;
   }
 
   getItems(): void {
-    this.itemService.getItems()
-      .subscribe( response => {
-        console.log(response);  
-        Array.prototype.push.apply(this.items, response);
+    this.loadingMore = true;
+    this.itemService.getItems(this.pageIndex, this.pageSize)
+      .subscribe( response => { 
+        response.result.forEach(element => {
+          element.description = element.description.substring(0, 200) + "...";
+        });
+        this.items = this.items.concat(response.result);
+        this.initLoading = false;
+        this.loadingMore = false;
+        this.pageIndex = response.nextPageIndex;
       });
   }
-
-
-  
 }

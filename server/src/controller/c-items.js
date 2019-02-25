@@ -1,13 +1,17 @@
 const mItem = require('../model/m-items');
 
 ItemsController = {
-    getAllItems : async (ctx) => {
-        let res;
-        await mItem.findAllItems()
-            .then(result => {
-                res = result;
+    getItemsByPage : async (ctx) => {
+        let pageIndex = ctx.request.body.pageIndex;
+        let pageSize =  ctx.request.body.pageSize;
+        await mItem.findItemsByPage(pageIndex, pageSize)
+            .then(res => {
+                ctx.response.body = {
+                    result: res, 
+                    currentPageIndex: pageIndex,
+                    nextPageIndex: pageIndex + 1
+                };
             });
-        ctx.response.body = await res;
     },
 
     getSingleItem : async (ctx) => {
