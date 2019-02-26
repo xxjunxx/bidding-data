@@ -8,6 +8,10 @@ router.post('/items', cItems.getItemsByPage);
 
 router.get('/items/:itemId', cItems.getSingleItem);
 
+router.post('/items/:itemId/bids', cItems.getSingleItem);
+
+
+
 router.get('/bidders', cUsers.getAllBidders);
 
 module.exports = router;

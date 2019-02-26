@@ -1,4 +1,6 @@
 const mItem = require('../model/m-items');
+const mBid = require('../model/m-bid');
+const mCategory = require('../model/m-category');
 
 ItemsController = {
     getItemsByPage : async (ctx) => {
@@ -15,14 +17,23 @@ ItemsController = {
     },
 
     getSingleItem : async (ctx) => {
-        let itemId = ctx.params.itemId,
-        res;
+        let itemId = ctx.params.itemId;
+        let item;
         await mItem.findItemById(itemId)
             .then(result => {
-                res = result;
+                item = result;
             });
-        ctx.response.body = await res;
-    }
+        await mBid.countByItemId(itemId)
+            .then(result => {
+                item[0].bid_count = result[0].count;
+            });
+        await mCategory.findCategoriesByItem(itemId)
+            .then(response => {
+                item[0].categories = response;
+            });
+        ctx.response.body = await item[0];
+    },
+
 }
 
 module.exports = ItemsController;

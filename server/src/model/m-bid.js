@@ -2,9 +2,10 @@ const query = require('../db/db-manager');
 
 BidModel = {
 
-    findAllBids : () => {
-        let sql = `SELECT * FROM bid limit 1`;
+    countByItemId : (itemId) => {
+        let sql = `SELECT COUNT(*) AS count FROM bid where item_id = ${itemId}`;
         return query(sql);
+    
     }
 }
 

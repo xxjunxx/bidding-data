@@ -1,0 +1,13 @@
+:host ::ng-deep .demo-loadmore-list {
+    min-height: 350px;
+  }
+
+:host ::ng-deep .loadmore {
+    text-align: center;
+    margin-top: 12px;
+    height: 32px;
+    line-height: 32px;
+}
+:host ::ng-deep .ant-list-item-meta-description {
+    max-width: 720px;
+}
