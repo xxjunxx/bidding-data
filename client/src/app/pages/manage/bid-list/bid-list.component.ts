@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
@@ -7,9 +7,12 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./bid-list.component.css']
 })
 export class BidListComponent implements OnInit {
+  
+  @Input() bidsTotal;
+  @Input() itemId;
+  
   pageIndex = 1;
   pageSize = 5;
-  total = 1;
   bidDataSet = [];
   loading = true;
 
@@ -17,23 +20,28 @@ export class BidListComponent implements OnInit {
   }
 
   searchData(reset: boolean = false): void {
+    this.loading = true;
     if (reset) {
       this.pageIndex = 1;
-    }
-    this.loading = true;
-    this.getBids(1, this.pageIndex);
+    } 
+    this.getBids(this.itemId, this.pageIndex, this.pageSize);
   }
 
   ngOnInit(): void {
-    this.getBids(1, this.pageIndex);
+    this.getBids(this.itemId, this.pageIndex, this.pageSize);
   }
 
-  getBids(itemId, pageIndex): void {
-    this.itemService.getBids(1, pageIndex)
+  getBids(itemId, pageIndex, pageSize): void {
+    this.itemService.getBidsByItem(itemId, pageIndex, pageSize)
       .subscribe(response => {
-        this.bidDataSet = response;
-        this.total = 8; 
+        response.result.forEach(element => {
+          let d = new Date(element.bid_time);
+          element.bid_time = d.toLocaleString();
+        });
+        this.bidDataSet = response.result;
         this.loading = false;
       });
   }
+
+
 }

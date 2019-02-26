@@ -24,7 +24,7 @@ ItemsController = {
                 item = result;
             });
         await mBid.countByItemId(itemId)
-            .then(result => {
+            .then(result => { 
                 item[0].bid_count = result[0].count;
             });
         await mCategory.findCategoriesByItem(itemId)
@@ -34,6 +34,20 @@ ItemsController = {
         ctx.response.body = await item[0];
     },
 
+    getBidsByItem : async (ctx) => {
+        let pageIndex = ctx.request.body.pageIndex;
+        let pageSize =  ctx.request.body.pageSize;
+        let itemId = ctx.params.itemId;
+        await mBid.findItemsByItemId(itemId, pageIndex, pageSize)
+            .then(result => {
+                ctx.response.body = {
+                    'result' : result,
+                    'currentPageIndex': pageIndex, 
+                    'nextPageIndex': pageIndex + 1
+                }
+                
+            });
+    }
 }
 
 module.exports = ItemsController;

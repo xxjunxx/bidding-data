@@ -7,4 +7,8 @@
     <p style="font-size: 80%">Description: {{item.description}}</p>
 </div>
 
-<app-bid-list></app-bid-list>  
+<app-bid-list *ngIf="item" 
+    [bidsTotal]="item.bid_count"
+    [itemId]="item.item_id"
+    >
+</app-bid-list>  

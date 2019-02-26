@@ -4,7 +4,7 @@
   [nzFrontPagination]="false"
   [nzData]="bidDataSet"
   [nzLoading]="loading"
-  [nzTotal]="total"
+  [nzTotal]="bidsTotal"
   [(nzPageIndex)]="pageIndex"
   [(nzPageSize)]="pageSize"
   (nzPageIndexChange)="searchData()"
@@ -14,6 +14,7 @@
       <th>bidder name</th>
       <th>bid time</th>
       <th>bid price</th>
+      <th>bid time</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,7 @@
       <td>{{data.bidder_name}}</td>
       <td>{{data.bid_time}}</td>
       <td>{{data.bid_price}}</td>
+      <td>{{data.bid_time}}</td>
     </tr>
   </tbody>
 </nz-table>
