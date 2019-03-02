@@ -9,7 +9,7 @@ ItemModel = {
     findItemById : (id) => {
         let sql = `SELECT * FROM item WHERE item_id = ${id}`;
         return query(sql);
-    }
+    },
 }
 
 

@@ -11,6 +11,7 @@
   (nzPageSizeChange)="searchData(true)">
   <thead >
     <tr>
+      <th>item</th>
       <th>bidder name</th>
       <th>bid time</th>
       <th>bid price</th>
@@ -19,6 +20,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
+      <td>{{data.item_id}}</td>
       <td>{{data.bidder_name}}</td>
       <td>{{data.bid_time}}</td>
       <td>{{data.bid_price}}</td>

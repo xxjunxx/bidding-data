@@ -38,14 +38,13 @@ ItemsController = {
         let pageIndex = ctx.request.body.pageIndex;
         let pageSize =  ctx.request.body.pageSize;
         let itemId = ctx.params.itemId;
-        await mBid.findItemsByItemId(itemId, pageIndex, pageSize)
+        await mBid.findBidsByItemId(itemId, pageIndex, pageSize)
             .then(result => {
                 ctx.response.body = {
                     'result' : result,
                     'currentPageIndex': pageIndex, 
                     'nextPageIndex': pageIndex + 1
                 }
-                
             });
     }
 }

@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'item-list', component: ItemListComponent, pathMatch: 'full'},
       { path: 'item-list/:id', component: ItemDetailComponent, pathMatch: 'full'},
       { path: 'user-list', component: UserListComponent, pathMatch: 'full'},
-      { path: 'user-list/:id', component: UserDetailComponent, pathMatch: 'full'},
+      { path: 'user-list/:name', component: UserDetailComponent, pathMatch: 'full'},
     ]
   }
 ];

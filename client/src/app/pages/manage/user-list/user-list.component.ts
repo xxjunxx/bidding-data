@@ -7,9 +7,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-
+  
   bidders = [];
   sellers = [];
+  bidderPageIndex = 1;
+  bidderPageSize = 5;
+  sellerPageIndex = 1;
+  sellerPageSize = 5;
   bidderInitLoading = true;
   bidderLoadingMore = false;
   sellerInitLoading = true;
@@ -20,22 +24,27 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.getBidders();
     this.getSellers();
+
   }
   getBidders(): void {
-    this.userService.getBidders()
+    this.bidderLoadingMore = true;
+    this.userService.getBidders(this.bidderPageIndex, this.bidderPageSize)
       .subscribe( response => {
-        console.log(response);  
-        Array.prototype.push.apply(this.bidders, response);
+        this.bidders = this.bidders.concat(response.result)
         this.bidderInitLoading = false;
+        this.bidderLoadingMore = false;
+        this.bidderPageIndex = response.nextPageIndex;
       });
   }
 
   getSellers(): void {
-    this.userService.getSellers()
+    this.sellerLoadingMore = true;
+    this.userService.getSellers(this.sellerPageIndex, this.sellerPageSize)
       .subscribe( response => {
-        console.log(response);  
-        Array.prototype.push.apply(this.sellers, response);
+        this.sellers = this.sellers.concat(response.result)
         this.sellerInitLoading = false;
+        this.sellerLoadingMore = false;
+        this.sellerPageIndex = response.nextPageIndex;
       });
   }
 }

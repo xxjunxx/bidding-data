@@ -1,16 +1,22 @@
-<p>
-  user-detail works!
-</p>
-
+<div *ngIf="user">
+  <h4>{{user.name}}</h4>
+  <p>rateing: {{user.rating}}</p>
+</div>
 <nz-tabset>
-    <nz-tab nzTitle="Bid">
+    <nz-tab nzTitle="Bid" *ngIf="user.isBidder">
      
-      <app-bid-list></app-bid-list>
+      <app-bid-list
+        [type]="'bidder'"
+        [bidsTotal]="user.bidCount"
+        [bidderName]="user.name"
+        ></app-bid-list>
     
     </nz-tab>
-    <nz-tab nzTitle="Sell">
+    <nz-tab nzTitle="Sell" *ngIf="user.isSeller">
     
-      <app-auction-list></app-auction-list>
+      <app-auction-list
+        [auctionsTotal]="user.auctionCount"
+        [sellerName]="user.name"></app-auction-list>
     
     </nz-tab>
   </nz-tabset>

@@ -1,32 +1,46 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from "rxjs";
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  bidders: any[] = [
-    { bidder_name : '1', rating: '111' },
-    { bidder_name : '2', rating: '222' },
-    { bidder_name : '3', rating: '333' },
-    { bidder_name : '4', rating: '444' },
-    { bidder_name : '5', rating: '555' }
-  ];
-  sellers: any[] = [
-    { seller_name : '1', rating: '11' },
-    { seller_name : '2', rating: '22' },
-    { seller_name : '3', rating: '33' },
-    { seller_name : '4', rating: '44' },
-    { seller_name : '5', rating: '55' }
-  ];
-  
-  constructor() { }
+  api = "http://localhost:5000";
 
-  getBidders(): Observable<any> {
-    return of(this.bidders);
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
+  constructor(private http: HttpClient) { }
+
+  getBidders(pageIndex, pageSize): Observable<any> {
+    let data = {
+      'pageIndex': pageIndex,
+      'pageSize': pageSize
+    }
+    return this.http.post(this.api + '/bidders', data, this.httpOptions);
   }
 
-  getSellers(): Observable<any> {
-    return of(this.sellers);
+  getSellers(pageIndex, pageSize): Observable<any> {
+    let data = {
+      'pageIndex': pageIndex,
+      'pageSize': pageSize
+    }
+    return this.http.post(this.api + '/sellers', data, this.httpOptions);
+  }
+
+  getSingleUser(userName): Observable<any> {
+    return this.http.get(this.api + '/users/' + userName);
+  }
+
+  getBidsByBidder(BidderName, pageIndex, pageSize): Observable<any> {
+    let data = {
+      'pageIndex': pageIndex,
+      'pageSize': pageSize
+    }
+    return this.http.post(this.api + '/bidders/' + BidderName + '/bids', data, this.httpOptions);
   }
 }

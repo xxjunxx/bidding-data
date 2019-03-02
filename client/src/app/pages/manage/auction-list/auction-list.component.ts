@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
@@ -7,9 +7,13 @@ import { ItemService } from 'src/app/services/item.service';
   styleUrls: ['./auction-list.component.css']
 })
 export class AuctionListComponent implements OnInit {
+  
+  @Input() auctionsTotal;
+  @Input() sellerName;
+  
+  
   pageIndex = 1;
   pageSize = 5;
-  total = 1;
   auctionDataSet = [];
   loading = true;
 
@@ -21,19 +25,19 @@ export class AuctionListComponent implements OnInit {
       this.pageIndex = 1;
     }
     this.loading = true;
-    this.getAuctions(1, this.pageIndex);
+    this.getAuctions(this.sellerName, this.pageIndex, this.pageSize);
   }
 
   ngOnInit(): void {
-    this.getAuctions(1, this.pageIndex);
+    this.getAuctions(this.sellerName, this.pageIndex, this.pageSize);
   }
 
-  getAuctions(itemId, pageIndex): void {
-    this.itemService.getAuctions(1, pageIndex)
+  getAuctions(sellerName, pageIndex, pageSize): void {
+    this.itemService.getAuctions(sellerName, pageIndex, pageSize)
       .subscribe(response => {
-        this.auctionDataSet = response;
-        this.total = 8; 
+        this.auctionDataSet = response.result;
         this.loading = false;
+        //console.log(this.auctionDataSet);
       });
   }
 

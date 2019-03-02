@@ -10,5 +10,14 @@ router.get('/items/:itemId', cItems.getSingleItem);
 
 router.post('/items/:itemId/bids', cItems.getBidsByItem);
 
+router.get('/users/:userName', cUsers.getSingleUser);
+
+router.post('/bidders', cUsers.getBiddersByPage);
+
+router.post('/bidders/:userName/bids', cUsers.getBidsByName);
+
+router.post('/sellers', cUsers.getSellersByPage);
+
+router.post('/sellers/:userName/auctions', cUsers.getAuctionsBySellerName);
 
 module.exports = router;
