@@ -20,7 +20,6 @@ BidModel = {
                     WHERE bidder_name = "${name}" LIMIT ` + (pageIndex - 1) * pageSize + `, ${pageSize}`;
         return query(sql);
     },
-
 }
 
 

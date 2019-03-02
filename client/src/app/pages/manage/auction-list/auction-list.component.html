@@ -20,7 +20,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of ajaxTable.data">
-      <td>{{data.item_id}}</td>
+      <td><a [routerLink]="['//manage/item-list/' + data.item_id]">{{data.item_id}}</a></td>
       <td>{{data.item_name}}</td>
       <td>{{data.seller_name}}</td>
       <td>{{data.startime}}</td>

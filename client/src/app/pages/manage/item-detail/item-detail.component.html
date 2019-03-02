@@ -1,6 +1,6 @@
 <div *ngIf="item">
     <h3>{{item.item_name}}</h3>
-    <p><b>Seller: </b> <a href="">{{item.seller_name}}</a></p>
+    <p><b>Seller: </b> <a [routerLink]="['//manage/user-list/'+item.seller_name]">{{item.seller_name}}</a></p>
     <div>
         <nz-tag [nzColor]="'magenta'" *ngFor="let category of item.categories">{{category.category_name}}</nz-tag>
     </div>

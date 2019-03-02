@@ -37,7 +37,6 @@ export class AuctionListComponent implements OnInit {
       .subscribe(response => {
         this.auctionDataSet = response.result;
         this.loading = false;
-        //console.log(this.auctionDataSet);
       });
   }
 
