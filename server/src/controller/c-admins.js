@@ -45,8 +45,7 @@ AdminController = {
                 } else {
                     let token = jwt.sign(res[0].email, 'secret');
                     ctx.response.body = {
-                        error: false,
-                        msg: "successful",
+                        email: email,
                         token: token
                     }
                 }
