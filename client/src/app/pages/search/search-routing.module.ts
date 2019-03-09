@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search.component';
+import { AuthGuard } from 'src/app/_guards/auth.guard';
 
 
 const routes: Routes = [
   {
     path: 'search',
-    component: SearchComponent
+    component: SearchComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

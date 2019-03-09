@@ -1,17 +1,39 @@
-<div class="full-screen page-content">
-  <div class="wrapper">
-    <img class="logo-img" src="./assets/img/logo.png" alt="">
-    <div class="text-wrapper">
-      <h1 class="title-text">
-        Today
-      </h1>
-    </div>
-    <input nz-input placeholder="请输入你喜欢的用户名" #usernameInput >
-    <button nz-button [nzType]="'primary'">
-      开始
-    </button>
-    <div class="copy-right">
-      Copyright © 2018 Wendell Hu
-    </div>
-  </div>
+<div class="form-wrapper">
+
+    <h2>Login</h2>
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixAdmin">
+            <input type="text" nz-input formControlName="email" placeholder="Email">
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('email').dirty && validateForm.get('email').errors">Please input your email!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="prefixLock">
+            <input type="password" nz-input formControlName="password" placeholder="Password">
+          </nz-input-group>
+          <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your Password!</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control>
+          <!-- <label nz-checkbox formControlName="remember">
+            <span>Remember me</span>
+          </label> -->
+          <!-- <a class="login-form-forgot" class="login-form-forgot">Forgot password</a> -->
+          <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+          Or
+          <a [routerLink]="['//register']">register now!</a>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #prefixAdmin><i nz-icon type="user"></i></ng-template>
+    <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+
 </div>
+  
