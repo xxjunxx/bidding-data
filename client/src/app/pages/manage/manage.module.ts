@@ -9,6 +9,8 @@ import { BidListComponent } from './bid-list/bid-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AuctionListComponent } from './auction-list/auction-list.component';
+import { ItemCreateComponent } from './item-create/item-create.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { AuctionListComponent } from './auction-list/auction-list.component';
     ItemDetailComponent, 
     BidListComponent, 
     UserListComponent, 
-    UserDetailComponent, AuctionListComponent
+    UserDetailComponent, AuctionListComponent, ItemCreateComponent
   ],
   imports: [
     CommonModule,
     NgZorroAntdModule,
-    ManageRoutingModule
+    ManageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ManageModule { }

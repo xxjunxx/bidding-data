@@ -6,6 +6,7 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AuthGuard } from 'src/app/_guards/auth.guard';
+import { ItemCreateComponent } from './item-create/item-create.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'item-list/:id', component: ItemDetailComponent, pathMatch: 'full' },
       { path: 'user-list', component: UserListComponent, pathMatch: 'full' },
       { path: 'user-list/:name', component: UserDetailComponent, pathMatch: 'full' },
+      { path: 'item-create', component: ItemCreateComponent, pathMatch: 'full' },
     ],
     canActivate: [AuthGuard]
   }

@@ -36,11 +36,26 @@ export class UserService {
     return this.http.get(this.api + '/users/' + userName);
   }
 
-  getBidsByBidder(BidderName, pageIndex, pageSize): Observable<any> {
+  getBidsByBidder(bidderName, pageIndex, pageSize): Observable<any> {
     let data = {
       'pageIndex': pageIndex,
       'pageSize': pageSize
     }
-    return this.http.post(this.api + '/bidders/' + BidderName + '/bids', data, this.httpOptions);
+    return this.http.post(this.api + '/bidders/' + bidderName + '/bids', data, this.httpOptions);
+  }
+
+  getSellersByTextSearch(sellerId): Observable<any> {
+    let sellers = [
+      'aaaaa',
+      'bbbbb',
+      'ccccc',
+      'ddddd',
+    ];
+    return of(sellers);
+  }
+
+  getSellerById(sellerId): Observable<any> {
+    let seller = ['SS'];
+    return of(seller);
   }
 }
