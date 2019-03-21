@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ValidationErrors, FormBuilder, Validators } from '@angular/forms';
 import { Observable, Observer } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { ItemService } from 'src/app/services/item.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,20 +22,24 @@ export class ItemCreateComponent  {
       this.validateForm.controls[ key ].markAsDirty();
       this.validateForm.controls[ key ].updateValueAndValidity();
     }
-    console.log(value);
+    this.itemService.postCreateItem(value.itemName, value.country, value.location, value.description, value.isExist, value.existSellerName, value.newSellerName, value.newRating)
+      .subscribe(result => {
+        if (result[0].result === "success") {
+          this.router.navigate(['//manage/item-list/' + result[0].itemId]);
+        }
+      });
   };
 
   // When user choose exist or new seller, validate relevant controls
-  validateSellerID(): void {
-    this.validateForm.controls.existSellerID.updateValueAndValidity();
-    this.validateForm.controls.newSellerID.updateValueAndValidity();
+  validateSellerName(): void {
+    this.validateForm.controls.existSellerName.updateValueAndValidity();
+    this.validateForm.controls.newSellerName.updateValueAndValidity();
     this.validateForm.controls.newRating.updateValueAndValidity();
     console.log(this.validateForm);
   }
 
   // If user choose exist seller, exist seller id must be required
   existSellerRequiredValidator = (control: FormControl): { [ s: string ]: boolean } => {
-    debugger
     if(this.validateForm === undefined) {
       return {};
     }
@@ -48,7 +54,7 @@ export class ItemCreateComponent  {
 
   // For auto complete possible exist sellers
   onExistSellerInput(value: string): void {
-    this.userService.getSellersByTextSearch(value).subscribe((result) => {
+    this.userService.getSellersByNameElasticSearch(value, 10).subscribe((result) => {
       this.existSellerOptions = result;
     });
   }
@@ -67,8 +73,8 @@ export class ItemCreateComponent  {
       return;
     }
 
-    this.userService.getSellerById(control.value).subscribe(result => {
-      if (control.value != result[0]) {
+    this.userService.getSellerByName(control.value).subscribe(result => {
+      if (result.length === 0) {
         observer.next({ error: true, not_exist: true });
       } else {
         observer.next(null);
@@ -91,6 +97,7 @@ export class ItemCreateComponent  {
     return {};
   }
 
+  // Check if there are duplicate seller id 
   newSellerAsyncValidator = (control: FormControl) => Observable.create((observer: Observer<ValidationErrors>) => {
     if (this.validateForm === undefined) {
       observer.next(null);
@@ -104,8 +111,8 @@ export class ItemCreateComponent  {
       return;
     }
 
-    this.userService.getSellerById(control.value).subscribe(result => {
-      if (control.value == result[0]) {
+    this.userService.getSellerByName(control.value).subscribe(result => {
+      if (result.length != 0) {
         observer.next({ error: true, exist: true });
       } else {
         observer.next(null);
@@ -114,15 +121,15 @@ export class ItemCreateComponent  {
     });
   });
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private itemService: ItemService, private router: Router) {
     this.validateForm = this.fb.group({
       itemName: [ '', [ Validators.required ] ],
       country : [ '', [ Validators.required ] ],
       description : [ '', [ Validators.required ] ],
       location : [ '' ],
       isExist: [ true, [ Validators.required ]],
-      existSellerID : [ '', [ this.existSellerRequiredValidator ], [ this.existSellerAsyncValidator ]],
-      newSellerID : [ '' , [ this.newSellerRequiredValidator ],[ this.newSellerAsyncValidator ]],
+      existSellerName : [ '', [ this.existSellerRequiredValidator ], [ this.existSellerAsyncValidator ]],
+      newSellerName : [ '' , [ this.newSellerRequiredValidator ],[ this.newSellerAsyncValidator ]],
       newRating: ['', [ this.newSellerRequiredValidator ]]
     });
   }

@@ -1,6 +1,7 @@
 const mItem = require('../model/m-items');
 const mBid = require('../model/m-bid');
 const mCategory = require('../model/m-category');
+const mUser = require('../model/m-users')
 
 ItemsController = {
     getItemsByPage : async (ctx) => {
@@ -46,6 +47,37 @@ ItemsController = {
                     'nextPageIndex': pageIndex + 1
                 }
             });
+    },
+
+    postCreateItem : async (ctx) => {
+        let itemName = ctx.request.body.itemName;
+        let country =  ctx.request.body.country;
+        let location = ctx.request.body.location;
+        let description =  ctx.request.body.description;
+        let isExist = ctx.request.body.isExist;
+        let existSellerName =  ctx.request.body.existSellerName;
+        let newSellerName =  ctx.request.body.newSellerName;
+        let newRating =  ctx.request.body.newRating;
+
+        let itemId;
+
+        await mItem.findMaxItemId()
+            .then(result => {
+                itemId = result[0].max + 1;
+            });
+        
+        if (!isExist) {
+            await mUser.insertSeller(newSellerName, newRating);
+
+            await mItem.insertItem(itemId, itemName, country, newSellerName, description);
+        } else {
+            await mItem.insertItem(itemId, itemName, country, existSellerName, description);
+        }
+
+        if (location) {
+            await mItem.insertItemLocation(itemId, location);
+        }
+        ctx.response.body = await [{result: "success", itemId: itemId}];
     }
 }
 

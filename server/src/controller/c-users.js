@@ -83,6 +83,25 @@ UserController = {
                     'nextPageIndex': pageIndex + 1
                 }
             });
+    },
+
+    getSellersByName : async (ctx)=> {
+        let sellerName = ctx.request.body.sellerName;
+        let isElastic =  ctx.request.body.isElastic;
+        let limitNum = ctx.request.body.limitNum;
+
+        if (!isElastic) {
+            await mUser.findSellerByName(sellerName)
+                .then(result => {
+                    ctx.response.body = result
+
+                });
+        } else {
+            await mUser.findSellerByNameElastic(sellerName, limitNum)
+            .then(result => {
+                ctx.response.body = result
+            });
+        }
     }
 }
 

@@ -21,5 +21,8 @@ AuthRouter.post('/sellers', cUsers.getSellersByPage);
 
 AuthRouter.post('/sellers/:userName/auctions', cUsers.getAuctionsBySellerName);
 
+AuthRouter.post('/item-create', cItems.postCreateItem);
+
+AuthRouter.post('/search/sellers/', cUsers.getSellersByName);
 
 module.exports = AuthRouter;

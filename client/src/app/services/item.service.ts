@@ -45,5 +45,17 @@ export class ItemService {
     return this.http.post(this.api + '/sellers/' + sellerName + '/auctions', data, this.httpOptions);
   }
     
-  
+  postCreateItem(itemName, country, location, description, isExist, existSellerName, newSellerName, newRating) {
+    let data = {
+      itemName,
+      country,
+      location,
+      description,
+      isExist,
+      existSellerName,
+      newSellerName,
+      newRating
+    }
+    return this.http.post(this.api + '/item-create' , data, this.httpOptions);
+  }
 }

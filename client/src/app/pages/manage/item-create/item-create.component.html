@@ -39,7 +39,7 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="7">Seller</nz-form-label>
     <nz-form-control [nzSpan]="12">
-      <nz-radio-group formControlName="isExist" (click)="validateSellerID()">
+      <nz-radio-group formControlName="isExist" (click)="validateSellerName()">
         <label nz-radio-button [nzValue]="true">Existing Seller</label>
         <label nz-radio-button [nzValue]="false">Create new Seller</label>
       </nz-radio-group>
@@ -49,20 +49,20 @@
   <nz-form-item *ngIf="validateForm.get('isExist').value">
     <nz-form-label [nzSpan]="7" nzRequired>Seller ID</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <input nz-input formControlName="existSellerID" (ngModelChange)="validateSellerID()" (input)="onExistSellerInput($event.target?.value)" [nzAutocomplete]="auto">
+      <input nz-input formControlName="existSellerName" (ngModelChange)="validateSellerName()" (input)="onExistSellerInput($event.target?.value)" [nzAutocomplete]="auto">
       <nz-autocomplete nzBackfill #auto>
-          <nz-auto-option *ngFor="let option of existSellerOptions" [nzValue]="option">
-          {{option}}
+          <nz-auto-option *ngFor="let option of existSellerOptions" [nzValue]="option.seller_name">
+          {{option.seller_name}}
           </nz-auto-option>
           </nz-autocomplete>
-      <nz-form-explain *ngIf="validateForm.get('existSellerID').dirty&&validateForm.get('existSellerID').errors || validateForm.get('existSellerID').pending">
-        <ng-container *ngIf="validateForm.get('existSellerID').hasError('required')">
+      <nz-form-explain *ngIf="validateForm.get('existSellerName').dirty&&validateForm.get('existSellerName').errors || validateForm.get('existSellerName').pending">
+        <ng-container *ngIf="validateForm.get('existSellerName').hasError('required')">
           Please input an existing seller id!
         </ng-container>
-        <ng-container *ngIf="validateForm.get('existSellerID').hasError('not_exist')">
+        <ng-container *ngIf="validateForm.get('existSellerName').hasError('not_exist')">
           The seller id doesn't exist!
         </ng-container>
-        <ng-container *ngIf="validateForm.get('existSellerID').pending">
+        <ng-container *ngIf="validateForm.get('existSellerName').pending">
           Validating...
         </ng-container>
       </nz-form-explain>
@@ -72,12 +72,12 @@
   <nz-form-item *ngIf="!validateForm.get('isExist').value">
     <nz-form-label [nzSpan]="7" nzRequired>New Seller ID</nz-form-label>
     <nz-form-control [nzSpan]="12" nzHasFeedback>
-      <input nz-input formControlName="newSellerID" placeholder="Enter a new seller id" (ngModelChange)="validateSellerID()">
-      <nz-form-explain *ngIf="validateForm.get('newSellerID').dirty && validateForm.get('newSellerID').errors || validateForm.get('newSellerID').pending ">
-        <ng-container *ngIf="validateForm.get('newSellerID').hasError('exist')">
+      <input nz-input formControlName="newSellerName" placeholder="Enter a new seller id" (ngModelChange)="validateSellerName()">
+      <nz-form-explain *ngIf="validateForm.get('newSellerName').dirty && validateForm.get('newSellerName').errors || validateForm.get('newSellerName').pending ">
+        <ng-container *ngIf="validateForm.get('newSellerName').hasError('exist')">
           The seller id already exists! Please choose another one
         </ng-container>
-        <ng-container *ngIf="validateForm.get('newSellerID').pending">
+        <ng-container *ngIf="validateForm.get('newSellerName').pending">
           Validating...
         </ng-container>
       </nz-form-explain>
@@ -87,8 +87,8 @@
   <nz-form-item *ngIf="!validateForm.get('isExist').value">
     <nz-form-label [nzSpan]="7" nzRequired>New Seller Rating</nz-form-label>
     <nz-form-control [nzSpan]="12">
-      <!-- <input nz-input formControlName="newRating" placeholder="Enter the rating" (ngModelChange)="validateSellerID()"> -->
-      <nz-input-number nz-input formControlName="newRating" (ngModelChange)="validateSellerID()" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+      <!-- <input nz-input formControlName="newRating" placeholder="Enter the rating" (ngModelChange)="validateSellerName()"> -->
+      <nz-input-number nz-input formControlName="newRating" (ngModelChange)="validateSellerName()" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
     </nz-form-control>
   </nz-form-item> 
 

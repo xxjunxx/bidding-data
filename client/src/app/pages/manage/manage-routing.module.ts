@@ -14,6 +14,7 @@ const routes: Routes = [
     path: 'manage',
     component: ManageComponent,
     children: [
+      { path: '', component: ItemListComponent, pathMatch: "full" },
       { path: 'item-list', component: ItemListComponent, pathMatch: 'full' },
       { path: 'item-list/:id', component: ItemDetailComponent, pathMatch: 'full' },
       { path: 'user-list', component: UserListComponent, pathMatch: 'full' },

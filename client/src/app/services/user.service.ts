@@ -44,18 +44,20 @@ export class UserService {
     return this.http.post(this.api + '/bidders/' + bidderName + '/bids', data, this.httpOptions);
   }
 
-  getSellersByTextSearch(sellerId): Observable<any> {
-    let sellers = [
-      'aaaaa',
-      'bbbbb',
-      'ccccc',
-      'ddddd',
-    ];
-    return of(sellers);
+  getSellersByNameElasticSearch(seller, num): Observable<any> {
+    let data = {
+      sellerName: seller,
+      isElastic: true,
+      limitNum: num
+    };
+    return this.http.post(this.api + '/search/sellers/', data, this.httpOptions);
   }
 
-  getSellerById(sellerId): Observable<any> {
-    let seller = ['SS'];
-    return of(seller);
+  getSellerByName(sellerName): Observable<any> {
+    let data = {
+      sellerName: sellerName,
+      isElastic: false,
+    };
+    return this.http.post(this.api + '/search/sellers/', data, this.httpOptions);
   }
 }

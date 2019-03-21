@@ -16,12 +16,8 @@
             <li nz-menu-item [routerLink]="['/manage/item-create']">Create</li>
           </ul>
         </li>
-        <li nz-submenu>
+        <li nz-menu-item [routerLink]="['/manage/user-list']">
           <span title><i nz-icon type="user"></i>Users</span>
-          <ul>
-            <li nz-menu-item [routerLink]="['/manage/user-list']" routerLinkActive="router-link-active">View</li>
-            <li nz-menu-item>Create</li>
-          </ul>
         </li>   
       </ul>
     </nz-sider>
