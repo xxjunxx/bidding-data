@@ -1,3 +1,30 @@
-<p>
-  search works!
-</p>
+<div class="search-container">
+  <div nz-row>
+    <div nz-col nzSpan="12" nzOffset="6">
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input #keywordSearch type="text" nz-input placeholder="input search text" (keyup.enter)="onKeywordSearch(true, keywordSearch.value)" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon type="search"></i>
+      </ng-template>
+    </div>
+  </div>
+  <br/>
+  <div nz-row *ngIf="searchData">
+    <div nz-col nzSpan="12" nzOffset="6">
+      <nz-list [nzDataSource]="searchData" nzBordered  [nzRenderItem]="item" class="search-result">
+        <ng-template #item let-content>
+          <nz-list-item [nzContent]="contentText"></nz-list-item>
+          <ng-template #contentText><a [routerLink]="['//manage/item-list/'+content.id]">{{content.name}}</a></ng-template>
+        </ng-template>
+      </nz-list>
+    </div>
+  </div>
+  <br/>
+  <div nz-row *ngIf="searchData">
+    <div nz-col nzSpan="6" nzOffset="9">
+      <nz-pagination [(nzPageIndex)]="pageIndex" [nzPageSize]="15" [nzTotal]="totalFound" [nzSize]="small" (nzPageIndexChange)="onKeywordSearch(false)"></nz-pagination>
+    </div>
+  </div>
+</div>
+

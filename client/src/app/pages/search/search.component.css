@@ -1,0 +1,11 @@
+.search-container {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 60px;
+}
+
+.search-result {
+    background-color: white;
+}
